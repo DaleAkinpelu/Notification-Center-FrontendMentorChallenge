@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link href="/dist/output.css" rel="stylesheet">
+  
+  <title>Frontend Mentor | Notifications page</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    .attribution { font-size: 11px; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+
+    :root {
+      /* ## Colors
+      
+      ### Primary
+      
+      - Red: hsl(1, 90%, 64%)
+      - Blue: hsl(219, 85%, 26%)
+      
+      ### Neutral
+      
+      - White: hsl(0, 0%, 100%)
+      - Very light grayish blue: hsl(210, 60%, 98%)
+      - Light grayish blue 1: hsl(211, 68%, 94%)
+      - Light grayish blue 2: hsl(205, 33%, 90%)
+      - Grayish blue: hsl(219, 14%, 63%)
+      - Dark grayish blue: hsl(219, 12%, 42%)
+      - Very dark blue: hsl(224, 21%, 14%) */
+
+      --primary-red-color: hsl(1, 90%, 64%);
+      --primary-blue-color: hsl(219, 85%, 26%);
+      --white: hsl(0, 0%, 100%);
+      --neutral-vlgBlue: hsl(210, 60%, 98%);
+      --neutral-lgBlue1:hsl(211, 68%, 94%);
+      --neutral-lgBlue2:hsl(205, 33%, 90%);
+      --neutral-gBlue:  hsl(219, 14%, 63%);
+      --neutral-dgBlue: hsl(219, 12%, 42%);
+      --neutral-vdBlue: hsl(224, 21%, 14%);
+    }
+
+    .notification-instance:nth-child(1), .notification-instance:nth-child(2), .notification-instance:nth-child(3)  {
+      background-color: var(--neutral-vlgBlue);
+    }
+
+    .message-box:hover {
+      background-color: var(--neutral-lgBlue1);
+    }
+
+    .notification-count {
+      background-color: var(--neutral-vdBlue);
+    }
+
+    body{
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+
+
+
+  </style>
+</head>
+<body>
+  <div class="notification-container w-full max-w-screen-sm md:w-[45vw] h-full mx-auto p-4 relative top-0 md:top-8 md:aspect-[4/3] bg-white md:rounded-xl text-base md:shadow-lg md:border md:border-solid ">
+    <div class="flex flex-col mx-auto w-full  min-h-full items-stretch">
+      <!-- Header -->
+      <div class="flex flex-row mx-auto w-full p-2">
+        <div class="text-left basis-1/2 font-bold">Notifications <span class="notification-count  rounded-md px-3 text-white" id="notification-count"> 3 </span></div>
+        <div class="text-right basis-1/2 font-light  "><span class="cursor-pointer hover:text-blue-400" id="togglebtn" onclick="toggleFunction()">Mark all as read</span></div>
+      </div>
+      <!-- Notifications -->
+      <div class="flex flex-col mx-auto min-w-full min-h-full items-stretch gap-y-2 p-2" id="notifications-container">
+        <div class="notification-instance basis-full  p-2 rounded-md" id="instance1">
+          <div class="notification-content flex flex-row">
+            <div class="img p-2 flex-none">
+              <img src="/assets/images/avatar-mark-webber.webp" alt="" class="w-10 h-10 mx-auto">
+            </div>
+            <div class="content align-middle flex-auto">
+              <span class="username font-semibold text-black hover:text-blue-400 cursor-pointer">Mark Webber</span> 
+              <span class="action font-light text-gray-500 ">reacted to your recent post</span> 
+              <span id="subject1" class="subject relative font-semibold text-black hover:text-blue-400 after:content-['\2022'] after:text-red-500 cursor-pointer">My first tournament today! </span>
+              <span class="time font-light text-gray-500 align-bottom block">1m ago</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="notification-instance basis-full  p-2 rounded-md " id="instance2">
+          <div class="notification-content flex flex-row">
+            <div class="img p-2 flex-none">
+              <img src="/assets/images/avatar-angela-gray.webp" alt="" class="w-10 h-10 mx-auto">
+            </div>
+            <div class="content align-middle flex-auto">
+              <span class="username font-semibold text-black hover:text-blue-400 cursor-pointer">Angela Gray</span> 
+              <span class="action font-light text-gray-500 ">followed you</span> 
+              <span id="subject2" class="subject relative font-semibold text-black hover:text-blue-400 after:content-['\2022'] after:text-red-500 cursor-pointer"></span>
+              <span class="time font-light text-gray-500 align-bottom block">5m ago</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="notification-instance basis-full  p-2 rounded-md" id="instance3">
+          <div class="notification-content flex flex-row">
+            <div class="img p-2 flex-none">
+              <img src="/assets/images/avatar-jacob-thompson.webp" alt="" class="w-10 h-10 mx-auto">
+            </div>
+            <div class="content align-middle flex-auto">
+              <span class="username font-semibold text-black hover:text-blue-400 cursor-pointer">Jacob Thompson</span> 
+              <span class="action font-light text-gray-500 ">has joined your group</span> 
+              <span id="subject3" class="subject relative font-semibold text-black hover:text-blue-400 after:content-['\2022'] after:text-red-500 cursor-pointer">Chess Club </span>
+              <span class="time font-light text-gray-500 align-bottom block">1 day ago</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="notification-instance bg-white   basis-full  p-2 rounded-md">
+          <div class="notification-content flex flex-col">
+            <div class="flex flex-row">
+              <div class="img p-2 flex-none">
+                <img src="/assets/images/avatar-rizky-hasanuddin.webp" alt="" class="w-10  h-10 mx-auto">
+              </div>
+              <div class="content align-middle flex-auto">
+                <span class="username font-semibold text-black hover:text-blue-400 cursor-pointer">Rizky Hasanuddin</span> 
+                <span class="action font-light text-gray-500 ">sent you a private message</span> 
+                <span class="subject "></span>
+                <span class="time font-light text-gray-500 align-bottom block">5 days ago</span>
+              </div>
+            </div>
+            <div class="message-box ml-12 border border-solid p-2 rounded-sm">
+              Hello, thanks for setting up the Chess Club. I've been a member for a few weeks now and 
+              I'm already having lots of fun and improving my game.
+            </div>
+          </div>
+        </div>
+        
+        <div class="notification-instance  bg-white  basis-full  p-2 rounded-md">
+          <div class="notification-content flex flex-row">
+            <div class="img p-2 flex-none">
+              <img src="/assets/images/avatar-kimberly-smith.webp" alt="" class="w-10 h-10 mx-auto">
+            </div>
+            <div class="content align-middle flex-auto">
+              <span class="username font-semibold text-black hover:text-blue-400 cursor-pointer">Kimberly Smith</span> 
+              <span class="action font-light text-gray-500 ">commented on your picture</span> 
+              <span class="subject "></span>
+              <span class="time font-light text-gray-500 align-bottom block">1 week ago</span>
+            </div>
+            <div class="img rounded-xl ml-auto mt-2 flex-none">
+              <img src="/assets/images/image-chess.webp" alt="" class="w-10 h-10 ml-auto">
+            </div>
+          </div>
+        </div>
+
+        <div class="notification-instance bg-white  basis-full  p-2 rounded-md">
+          <div class="notification-content flex flex-row">
+            <div class="img p-2 aspect-square flex-none">
+              <img src="/assets/images/avatar-nathan-peterson.webp" alt="" class="w-10 h-10 aspect-square mx-auto">
+            </div>
+            <div class="content align-middle flex-auto">
+              <span class="username font-semibold text-black hover:text-blue-400 cursor-pointer">Nathan Peterson</span> 
+              <span class="action font-light text-gray-500 ">reacted to your recent post</span> 
+              <span class="subject relative font-semibold text-black hover:text-blue-400 cursor-pointer">5 end-game strategies to increase your win rate</span>
+              <span class="time font-light text-gray-500 align-bottom block">2 weeks ago</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="notification-instance bg-white  basis-full  p-2 rounded-md">
+          <div class="notification-content flex flex-row">
+            <div class="img p-2 flex-none">
+              <img src="/assets/images/avatar-anna-kim.webp" alt="" class="w-10 h-10 aspect-square  mx-auto">
+            </div>
+            <div class="content align-middle flex-auto">
+              <span class="username font-semibold text-black hover:text-blue-400 cursor-pointer">Anna Kim</span> 
+              <span class="action font-light text-gray-500 ">left the group</span> 
+              <span class="subject relative font-semibold text-black hover:text-blue-400 cursor-pointer">Chess Club</span>
+              <span class="time font-light text-gray-500 align-bottom block">2 weeks ago</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="attribution mt-12">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+    Coded by <a href="#">Boladale Akinpelu</a>.
+  </div>
+
+  <script>
+    var toggleBtn = document.getElementById('togglebtn');
+    var notificationCount = document.getElementById('notification-count');
+    var text = "0";
+
+    var notificationInst1 = document.getElementById("instance1");
+    var notificationInst2 = document.getElementById("instance2");
+    var notificationInst3 = document.getElementById("instance3");
+
+    var subject1 =  document.getElementById("subject1");
+    var subject2 =  document.getElementById("subject2");
+    var subject3 =  document.getElementById("subject3");
+
+    function toggleFunction() {
+      notificationCount.textContent = text;
+
+      notificationInst1.style.backgroundColor = "white";
+      notificationInst2.style.backgroundColor = "white";
+      notificationInst3.style.backgroundColor = "white";
+
+      if ((subject1.classList.contains("after:text-red-500")) && (subject2.classList.contains("after:text-red-500")) && (subject3.classList.contains("after:text-red-500"))) {
+        subject1.classList.add("after:invisible");
+        subject2.classList.add("after:invisible");
+        subject3.classList.add("after:invisible");   
+      }
+      
+    }
+  </script>
+</body>
+</html>
